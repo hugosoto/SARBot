@@ -4,7 +4,7 @@ This project transforms a standard LAFVIN Raspberry Pi car into an autonomous se
 **Key Features:**
 
 - AI Object Detection: Uses computer vision to identify people, cats, and dogs.
-- Telegram notification system: Sends a picture with the detected object
+- Telegram Alerts: When the robot detects a person, dog, or cat
 - Two-Way Audio: Enables real-time communication between a remote operator and a survivor, acting as a mobile walkie-talkie.
 - Thermal Camera: Detects body heat signatures to help determine if a victim is alive.
 - Base Platform: Built upon the 4WD LAFVIN Raspberry Pi car
@@ -75,6 +75,17 @@ The video streaming server (`server.py`) now runs **asynchronous object detectio
 4. Responses are processed asynchronously; detected objects trigger the configured actions and save images.
 
 This integration adds **autonomous visual intelligence** to the robot, allowing it to react to survivors or pets without manual intervention.
+
+## Telegram Alerts
+
+When the robot detects a person, dog, or cat, it saves an image with a bounding box to `/tmp/`.  
+A separate Bash script (`telegram/send_detections.sh`) can be run periodically (e.g., via `cron`) to forward these images to a Telegram group.
+
+- **Instant notifications** – Get visual confirmation of what the robot sees.
+- **Non‑intrusive** – Moves processed images to `/tmp/processed/` to avoid duplicate sends.
+- **Easy to set up** – Just add your bot token and chat ID.
+
+See [`telegram/README.md`](telegram/README.md) for setup and automation instructions.
 
 ## Two‑Way Audio - Hermes
 
