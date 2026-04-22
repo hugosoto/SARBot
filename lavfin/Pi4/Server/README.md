@@ -2,7 +2,7 @@
 
 This directory contains the modified server code for the LAFVIN 4WD Raspberry Pi car. The original code has been enhanced to support AI integration and provide better operational feedback.
 
-## Modified Files
+## Modified Files - mainv3.py and server.py
 
 ### `mainv3.py`
 
@@ -28,10 +28,6 @@ This is the main entry point for the car's control server. It manages the TCP se
 **Dependencies added**:
 - `subprocess`: For executing `podman` commands
 - `requests`: For probing the AI server's HTTP API
-
-### `server.py`
-
-(To be documented based on your modifications.)
 
 ## Beep Pattern Reference
 
@@ -78,6 +74,7 @@ The script responds to the following signals:
 **SIGUSR1:** Stop the server (without full shutdown)
 **SIGUSR2:** Restart the server (stop then start)
 
+---
 
 ### `server.py` – AI‑Enhanced Video & Control Server
 
@@ -160,7 +157,7 @@ Every written frame is copied to both `frame` (for live video) and `ai_frame` (f
 
 ---
 
-## Performance Optimisations
+## 7. Performance Optimisations
 
 - **Single-frame queue**  
   Avoids building a backlog of frames to process.
@@ -180,7 +177,7 @@ Every written frame is copied to both `frame` (for live video) and `ai_frame` (f
 
 ---
 
-## Dependencies Added
+## 8. Dependencies Added
 
 - `requests` — HTTP calls to CodeProject.AI
 - `cv2` (OpenCV) — image decoding, resizing, and drawing bounding boxes
@@ -188,20 +185,21 @@ Every written frame is copied to both `frame` (for live video) and `ai_frame` (f
 
 ---
 
-## Logging & Debugging
+## 9. Logging & Debugging
 
 - Detection events are printed to the console.  
   Example:
- ````
+```
 ALERTA: Detectado PERSON con 0.85
 ```
-- Error messages include:
+
+Error messages include:
 - API timeouts
 - Failed detection requests
 
 ---
 
-## Integration with `mainv3.py`
+## 10. Integration with `mainv3.py`
 
 - `mainv3.py`
 - Ensures the CodeProject.AI container is running

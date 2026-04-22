@@ -54,9 +54,9 @@ This project uses [CodeProject.AI Server](https://github.com/codeproject/CodePro
 - **Containerized**: Managed via `podman` for easy installation and updates.
 - **Accessed via REST API**: The car sends images to `http://localhost:32168/v1/vision/detection` and receives JSON results.
 
-The AI server must be installed separately (see [Installation](#installation)). The control script only manages its container lifecycle.
+The AI server must be installed separately (see [Installation](https://github.com/codeproject/CodeProject.AI-Server)). The control script only manages its container lifecycle.
 
-### Real‑Time Object Detection (`server.py`)
+## Real‑Time Object Detection (`server.py`)
 
 The video streaming server (`server.py`) now runs **asynchronous object detection** on every frame using [CodeProject.AI Server](https://github.com/codeproject/CodeProject.AI-Server). It identifies **people, dogs, and cats** without blocking the video stream or car controls.
 
