@@ -1,0 +1,21 @@
+flowchart TD
+    A([mainv3.py starts])
+    B["Initialize hardware<br/>(GPIO, buzzer, motors, etc.)"]
+    C["Attempt to start<br/>CodeProject.AI container<br/>(podman)"]
+    D{AI container started?}
+    E["Retry with<br/>increasing delay<br/>(max 3 tries)"]
+    F["Wait for AI server<br/>http://localhost:32168/v1/status<br/>(timeout 90s)"]
+    G{AI server responds?}
+    H["Beep twice<br/>(AI available)"]
+    I["Beep three times<br/>(continue WITHOUT AI)"]
+    J[Start TCP server thread]
+    K[Start video streaming thread]
+    L["Beep three short times<br/>(system ready)"]
+
+    A --> B --> C --> D
+    D -- No --> E --> C
+    D -- Yes --> F
+    F --> G
+    G -- Yes --> H --> J
+    G -- No --> I --> J
+    J --> K --> L

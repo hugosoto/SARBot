@@ -1,0 +1,35 @@
+flowchart TD
+
+    %% Image creation
+    A[server.py saves detection image]
+    B[Detection image file created]
+
+    A --> B
+
+    %% Entry points
+    subgraph ENTRY[Script entry paths]
+        C[Cron trigger]
+        D[Boot time loop]
+        E[Sleep interval]
+        D --> E --> D
+    end
+
+    %% Script start
+    C --> F[send_detections.sh runs]
+    D --> F
+
+    %% File scan
+    F --> G[Scan temp directory]
+    G --> H{Image found}
+
+    H -- No --> F
+    H -- Yes --> I[Send image to Telegram]
+
+    %% Result handling
+    I --> J{Send ok}
+    J -- Yes --> K[Move image to processed folder]
+    J -- No --> L[Keep image for retry]
+
+    %% Idempotency
+    K --> M[Processed images skipped]
+    L --> G

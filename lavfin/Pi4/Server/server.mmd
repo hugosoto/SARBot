@@ -1,0 +1,55 @@
+flowchart LR
+
+    %% Video Capture
+    subgraph CAPTURE["Video Capture and Streaming"]
+        A[Camera frames]
+        B[Write to StreamingOutput]
+        C[Main stream]
+        D[AI frame copy]
+
+        A --> B
+        B --> C
+        B --> D
+    end
+
+    %% Detection Loop
+    subgraph DETECT["Detection Loop 50ms"]
+        E[Get latest AI frame]
+        F{Frame too old}
+        G[Resize 320x240]
+        H[Lower JPEG quality]
+        I[Queue frame for AI]
+
+        D --> E --> F
+        F -- Yes --> E
+        F -- No --> G --> H --> I
+    end
+
+    %% Async Worker
+    subgraph WORKER["Async AI Worker"]
+        J[Receive frame]
+        K[POST to AI server]
+        L[Wait response 8s]
+        M[Queue result]
+
+        I --> J --> K --> L --> M
+    end
+
+    %% Result Processing
+    subgraph RESULTS["Result Processing"]
+        N[Read detection result]
+        O{Result too old}
+        P{Target detected}
+        Q{Cooldown ok}
+        R[Save image to /tmp]
+        S[Activate LED and buzzer]
+        T[Ignore]
+
+        M --> N --> O
+        O -- Yes --> T
+        O -- No --> P
+        P -- No --> T
+        P -- Yes --> Q
+        Q -- No --> T
+        Q -- Yes --> R --> S
+    end
