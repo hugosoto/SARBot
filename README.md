@@ -1,5 +1,5 @@
 # SARBot
-This project transforms a standard LAFVIN Raspberry Pi car into an autonomous search and rescue robot. It integrates local AI-powered object detection to identify people, cats, and dogs. Key enhancements over the base model include a local AI server (no internet required), telegram notification sytem, two-way audio system for real-time communication with survivors and a thermal camera to assess their condition.
+This project transforms a standard LAFVIN Raspberry Pi car into an autonomous search and rescue robot. Key enhancements over the base model include the integration of a local AI-powered object detection system that operates without internet connectivity, enabling the identification of people, cats, and dogs, Telegram notification system, a two-way audio system for real-time communication with survivors, and a thermal camera to assess their condition.
 
 **Key Features:**
 
