@@ -1,0 +1,44 @@
+flowchart LR
+
+    subgraph SERVER["Server on robot"]
+        S1[Start server process]
+        S2[Bind TCP port 5000]
+        S3[Open microphone input]
+        S4[Open speaker output]
+        S5[Wait for client]
+        S6[Connected state]
+
+        S7[Read mic audio chunk]
+        S8[Send audio to client]
+
+        S9[Receive audio chunk]
+        S10[Play audio on speaker]
+
+        S11[Monitor audio level]
+        S12[Loud sound alert]
+
+        S1 --> S2 --> S3 --> S4 --> S5 --> S6
+        S6 --> S7 --> S8
+        S6 --> S9 --> S10
+        S7 --> S11 --> S12
+    end
+
+    subgraph CLIENT["Client on operator computer"]
+        C1[Start client]
+        C2[Connect to server]
+        C3[Open microphone input]
+        C4[Open speaker output]
+
+        C5[Read mic audio chunk]
+        C6[Send audio to server]
+
+        C7[Receive audio chunk]
+        C8[Play audio on speaker]
+
+        C1 --> C2 --> C3 --> C4
+        C4 --> C5 --> C6
+        C4 --> C7 --> C8
+    end
+
+    S8 --> C7
+    C6 --> S9
